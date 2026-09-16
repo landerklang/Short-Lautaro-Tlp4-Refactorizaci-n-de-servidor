@@ -19,7 +19,7 @@ class EmployeeRoutes {
     this.router.get("/employees/:id", this.employeeCtrl.findOneEmployee);
   }
   updateOne() {
-    this.router.post("/employees/:id", this.employeeCtrl.updateEmployee);
+    this.router.put("/employees/:id", this.employeeCtrl.updateEmployee);
   }
   delete() {
     this.router.delete("/employees/:id", this.employeeCtrl.deleteEmployee);

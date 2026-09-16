@@ -6,11 +6,15 @@ import { env } from "./envConfig.ts";
 
 const PORT = Number(env.PORT);
 const MONGO_URI = env.MONGO_URI;
+
 class Server {
   private app: Application;
+
   constructor() {
     this.app = express();
+    this.routes();
   }
+
   dbConnect() {
     mongoose
       .connect(MONGO_URI)
@@ -28,7 +32,10 @@ class Server {
   midlewarer() {
     this.app.use(express.json());
   }
-  routes() {}
+  private routes() {
+    const employeeroutes = new EmployeeRoutes();
+    this.app.use("/api", employeeroutes.router);
+  }
   listen() {}
 }
 

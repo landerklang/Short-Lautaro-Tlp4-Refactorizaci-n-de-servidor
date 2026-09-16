@@ -1,10 +1,11 @@
 import express, { Application } from "express";
 import EmployeeRoutes from "../routes/employer.routes";
 import mongoose from "mongoose";
-import "dotenv/config";
 
-const PORT = Number(process.env.PORT);
-const MONGO_URI = process.env.MONGO_URI;
+import { env } from "./envConfig.ts";
+
+const PORT = Number(env.PORT);
+const MONGO_URI = env.MONGO_URI;
 class Server {
   private app: Application;
   constructor() {

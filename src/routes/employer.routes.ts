@@ -2,12 +2,17 @@ import { Router } from "express";
 import EmployeeControllers from "../controller/employee.controller.ts";
 
 class EmployeeRoutes {
-  router: Router;
+  public router: Router;
   constructor(
     readonly employeeCtrl: EmployeeControllers = new EmployeeControllers(),
   ) {
     this.employeeCtrl = employeeCtrl;
     this.router = Router();
+    this.post();
+  this.get();
+  this.getOne();
+  this.updateOne();
+  this.delete();
   }
   post() {
     this.router.post("/employees", this.employeeCtrl.createEmployee);

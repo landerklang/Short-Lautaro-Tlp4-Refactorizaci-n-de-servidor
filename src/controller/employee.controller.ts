@@ -52,7 +52,18 @@ class EmployeeControllers {
         .json({ message: "Error del sistema", error: error.message });
     }
   };
-  deleteEmployee(req: Request, res: Response) {}
+  deleteEmployee= async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const employee= await Employee.findByIdAndDelete(id)
+      if(!employee){
+        return res.status(404).json({message:"No se ecnotro el empleado"})
+      }
+      return res.status(200).json({message:"Se elimino al empleado"})
+    } catch (error:any) {
+      return res.status(500).json({message:"Error en el sistema",error:error.message})
+    }
+  }
 }
 
 export default EmployeeControllers;

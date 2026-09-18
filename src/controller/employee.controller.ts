@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Employee from "../models/model";
+import Employee from "../models/model.js";
 
 class EmployeeControllers {
   createEmployee = async (req: Request, res: Response) => {
@@ -8,6 +8,11 @@ class EmployeeControllers {
       await newEmployee.save();
       res.status(201).json(newEmployee);
     } catch (error: any) {
+      console.log("solo req");
+      console.log(req);
+      console.log("con body");
+      console.log(req.body);
+      console.log(this);
       res
         .status(400)
         .json({ message: "Error al crear empleado", error: error.message });
@@ -52,18 +57,20 @@ class EmployeeControllers {
         .json({ message: "Error del sistema", error: error.message });
     }
   };
-  deleteEmployee= async (req: Request, res: Response) => {
+  deleteEmployee = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const employee= await Employee.findByIdAndDelete(id)
-      if(!employee){
-        return res.status(404).json({message:"No se ecnotro el empleado"})
+      const employee = await Employee.findByIdAndDelete(id);
+      if (!employee) {
+        return res.status(404).json({ message: "No se ecnotro el empleado" });
       }
-      return res.status(200).json({message:"Se elimino al empleado"})
-    } catch (error:any) {
-      return res.status(500).json({message:"Error en el sistema",error:error.message})
+      return res.status(200).json({ message: "Se elimino al empleado" });
+    } catch (error: any) {
+      return res
+        .status(500)
+        .json({ message: "Error en el sistema", error: error.message });
     }
-  }
+  };
 }
 
 export default EmployeeControllers;

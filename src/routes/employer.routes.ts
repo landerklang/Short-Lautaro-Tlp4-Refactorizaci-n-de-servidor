@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { Request, Response } from "express";
 import EmployeeControllers from "../controller/employee.controller.ts";
 
 class EmployeeRoutes {
@@ -9,10 +10,10 @@ class EmployeeRoutes {
     this.employeeCtrl = employeeCtrl;
     this.router = Router();
     this.post();
-  this.get();
-  this.getOne();
-  this.updateOne();
-  this.delete();
+    this.get();
+    this.getOne();
+    this.updateOne();
+    this.delete();
   }
   post() {
     this.router.post("/employees", this.employeeCtrl.createEmployee);

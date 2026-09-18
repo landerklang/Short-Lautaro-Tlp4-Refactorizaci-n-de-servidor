@@ -1,7 +1,6 @@
-TAREA:las rutas son llamadas 
+TAREA:Crear un empleado funciona
 FECHA:18/09
-Donde estoy: en el controlador no se llamaba los metodos
-Que se: que para que funciones los metodos debo de indicarle al contructor que las ejecuten
-Que falta: validar que los controladores funcionen
-Que duda tengo: si todo los controladores estan bien
-
+Donde estoy: en el servidor nuevo se cambiaron el orden de los metodos
+Que se: se que es muy importante el orde de los metodos en typescript
+Que falta: validar que las demas controladores funciones
+Que duda tengo: si estoy haciendo bien

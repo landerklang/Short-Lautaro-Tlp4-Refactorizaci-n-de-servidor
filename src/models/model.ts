@@ -6,7 +6,7 @@ const employeeSchema = new Schema(
     position: { type: String, required: true },
     baseSalary: { type: Number, required: true },
     yearsOfService: { type: Number, required: true },
-    finalSalary: { type: Number, required: true },
+    finalSalary: { type: Number },
   },
   { timestamps: true },
 );

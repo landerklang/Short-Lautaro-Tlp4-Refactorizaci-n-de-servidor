@@ -1,18 +1,19 @@
 import { Request, Response } from "express";
 import Employee from "../models/model.js";
+import { EmployeeService } from "../service/employee.service";
 
 class EmployeeControllers {
   createEmployee = async (req: Request, res: Response) => {
     try {
+      const { baseSalary, yearsOfService } = req.body;
+      const Calculo = new EmployeeService();
+      const Salariofinal = Calculo.calcularSalario(baseSalary, yearsOfService);
+      console.log(Salariofinal);
       const newEmployee = new Employee(req.body);
+      newEmployee.finalSalary = Salariofinal;
       await newEmployee.save();
       res.status(201).json(newEmployee);
     } catch (error: any) {
-      console.log("solo req");
-      console.log(req);
-      console.log("con body");
-      console.log(req.body);
-      console.log(this);
       res
         .status(400)
         .json({ message: "Error al crear empleado", error: error.message });

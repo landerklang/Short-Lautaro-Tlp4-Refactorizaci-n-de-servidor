@@ -8,7 +8,6 @@ class EmployeeControllers {
       const { baseSalary, yearsOfService } = req.body;
       const Calculo = new EmployeeService();
       const Salariofinal = Calculo.calcularSalario(baseSalary, yearsOfService);
-      console.log(Salariofinal);
       const newEmployee = new Employee(req.body);
       newEmployee.finalSalary = Salariofinal;
       await newEmployee.save();
@@ -45,9 +44,12 @@ class EmployeeControllers {
     }
   };
   updateEmployee = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const body = req.body;
     try {
-      const { id } = req.params;
-      const employee = await Employee.findByIdAndUpdate(id);
+      const employee = await Employee.findByIdAndUpdate(id, body, {
+        new: true,
+      });
       if (!employee) {
         return res.status(404).json({ message: "No se encontro al empleado" });
       }

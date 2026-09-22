@@ -1,7 +1,7 @@
 TAREA:Factorizar el servidor
 FECHA:21/09
-Donde estoy: Añadi el servicio para que calcule el salario final del empleado
-Que se: se que los servicio no son lo mismo que los midlewarer
+Donde estoy: se reestructuro el controlador actualizar para que este funciones de forma correcta
+Que se: se que la forma en como tengo en el anterio trabajo esta mal
 Que falta: validar que las demas controladores funciones
 Que duda tengo: para que sirve la carpeta repository y porque debo de utilizarla
 

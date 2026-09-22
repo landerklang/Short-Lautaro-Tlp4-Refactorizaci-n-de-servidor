@@ -6,10 +6,10 @@ class EmployeeControllers {
   createEmployee = async (req: Request, res: Response) => {
     try {
       const { baseSalary, yearsOfService } = req.body;
-      const Calculo = new EmployeeService();
-      const Salariofinal = Calculo.calcularSalario(baseSalary, yearsOfService);
+      const calculo = new EmployeeService();
+      const salariofinal = calculo.calcularSalario(baseSalary, yearsOfService);
       const newEmployee = new Employee(req.body);
-      newEmployee.finalSalary = Salariofinal;
+      newEmployee.finalSalary = salariofinal;
       await newEmployee.save();
       res.status(201).json(newEmployee);
     } catch (error: any) {
@@ -36,7 +36,7 @@ class EmployeeControllers {
       if (!employee) {
         return res.status(404).json({ message: "No se encontro al empleado" });
       }
-      res.status(201).json(employee);
+      res.status(200).json(employee);
     } catch (error: any) {
       res
         .status(500)
@@ -44,12 +44,17 @@ class EmployeeControllers {
     }
   };
   updateEmployee = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const body = req.body;
     try {
-      const employee = await Employee.findByIdAndUpdate(id, body, {
-        new: true,
-      });
+      const { id } = req.params;
+      const { baseSalary, yearsOfService } = req.body;
+
+      const calculo = new EmployeeService();
+      const salariofinal = calculo.calcularSalario(baseSalary, yearsOfService);
+      const employee = await Employee.findByIdAndUpdate(
+        id,
+        { ...req.body, finalSalary: salariofinal },
+        { new: true },
+      );
       if (!employee) {
         return res.status(404).json({ message: "No se encontro al empleado" });
       }

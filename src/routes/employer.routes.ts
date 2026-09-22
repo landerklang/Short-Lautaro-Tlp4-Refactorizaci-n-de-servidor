@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { Request, Response } from "express";
 import EmployeeControllers from "../controller/employee.controller.ts";
 
 class EmployeeRoutes {
@@ -19,7 +18,7 @@ class EmployeeRoutes {
     this.router.post("/employees", this.employeeCtrl.createEmployee);
   }
   get() {
-    this.router.get("/employees", this.employeeCtrl.findEmployee);
+    this.router.get("/employees", this.employeeCtrl.findAllEmployee);
   }
   getOne() {
     this.router.get("/employees/:id", this.employeeCtrl.findOneEmployee);

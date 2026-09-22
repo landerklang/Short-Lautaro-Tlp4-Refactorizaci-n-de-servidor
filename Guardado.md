@@ -1,8 +1,8 @@
 TAREA:Factorizar el servidor
 FECHA:21/09
-Donde estoy: se añadio el errorhandle para que los controladores solamente se encargen de hacer su funciones no tambien de capturar los errores
-Que se: el como se esctruturaba el errorhandle
-Que falta: realizar el archivo y la carpeta repositorio junto con los cambio que tengo que realizarle a los controladores
+Donde estoy: se reorganizaron todos los controladores para que pudiera utilizar los metodo de la clase employeeservicies
+Que se: como se debe hacer un repository
+Que falta: justificar el porque se aplicaron cierta reglas de solid al codigo
 Que duda tengo: como se hace la carpeta la carpeta repository
 
 REGLA APRENDIDA: middleware antes que rutas en Express.

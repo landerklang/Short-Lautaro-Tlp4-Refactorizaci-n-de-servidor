@@ -1,33 +1,30 @@
 import { NextFunction, Request, Response } from "express";
-import Employee from "../models/model.js";
-import { EmployeeService } from "../service/employee.service";
+import { EmployeeService } from "../service/employee.service.ts";
 
 class EmployeeControllers {
   createEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { baseSalary, yearsOfService } = req.body;
-      const calculo = new EmployeeService();
-      const salariofinal = calculo.calcularSalario(baseSalary, yearsOfService);
-      const newEmployee = new Employee(req.body);
-      newEmployee.finalSalary = salariofinal;
-      await newEmployee.save();
+      const servicio = new EmployeeService();
+      const newEmployee = await servicio.createEmployee(req.body);
       res.status(201).json(newEmployee);
     } catch (error) {
       next(error);
     }
   };
-  findEmployee = async (req: Request, res: Response, next: NextFunction) => {
+  findAllEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const employee = await Employee.find();
-      res.json(employee);
+      const servicio = new EmployeeService();
+      const employees = await servicio.findAll();
+      res.json(employees);
     } catch (error) {
       next(error);
     }
   };
   findOneEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { id } = req.params;
-      const employee = await Employee.findById(id);
+      const servicio = new EmployeeService();
+      const id = req.params.id as string;
+      const employee = await servicio.findOne(id);
       if (!employee) {
         const error: any = new Error("No se encontró al empleado");
         error.statusCode = 404;
@@ -40,16 +37,9 @@ class EmployeeControllers {
   };
   updateEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { id } = req.params;
-      const { baseSalary, yearsOfService } = req.body;
-
-      const calculo = new EmployeeService();
-      const salariofinal = calculo.calcularSalario(baseSalary, yearsOfService);
-      const employee = await Employee.findByIdAndUpdate(
-        id,
-        { ...req.body, finalSalary: salariofinal },
-        { new: true },
-      );
+      const servicio = new EmployeeService();
+      const id = req.params.id as string;
+      const employee = await servicio.updateEmployee(id, req.body);
       if (!employee) {
         const error: any = new Error("No se encontró al empleado");
         error.statusCode = 404;
@@ -62,8 +52,9 @@ class EmployeeControllers {
   };
   deleteEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { id } = req.params;
-      const employee = await Employee.findByIdAndDelete(id);
+      const id = req.params.id as string;
+      const servicio = new EmployeeService();
+      const employee = await servicio.deleteEmployee(id);
       if (!employee) {
         const error: any = new Error("No se encontró al empleado");
         error.statusCode = 404;

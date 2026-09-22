@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import Employee from "../models/model.js";
 import { EmployeeService } from "../service/employee.service";
 
 class EmployeeControllers {
-  createEmployee = async (req: Request, res: Response) => {
+  createEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { baseSalary, yearsOfService } = req.body;
       const calculo = new EmployeeService();
@@ -12,38 +12,33 @@ class EmployeeControllers {
       newEmployee.finalSalary = salariofinal;
       await newEmployee.save();
       res.status(201).json(newEmployee);
-    } catch (error: any) {
-      res
-        .status(400)
-        .json({ message: "Error al crear empleado", error: error.message });
+    } catch (error) {
+      next(error);
     }
   };
-  findEmployee = async (req: Request, res: Response) => {
+  findEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const employee = await Employee.find();
       res.json(employee);
-    } catch (error: any) {
-      res.status(500).json({
-        message: "Error al buscar a los empleados",
-        error: error.message,
-      });
+    } catch (error) {
+      next(error);
     }
   };
-  findOneEmployee = async (req: Request, res: Response) => {
+  findOneEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
       const employee = await Employee.findById(id);
       if (!employee) {
-        return res.status(404).json({ message: "No se encontro al empleado" });
+        const error: any = new Error("No se encontró al empleado");
+        error.statusCode = 404;
+        throw error;
       }
       res.status(200).json(employee);
-    } catch (error: any) {
-      res
-        .status(500)
-        .json({ message: "Error del sistema", error: error.message });
+    } catch (error) {
+      next(error);
     }
   };
-  updateEmployee = async (req: Request, res: Response) => {
+  updateEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
       const { baseSalary, yearsOfService } = req.body;
@@ -56,27 +51,27 @@ class EmployeeControllers {
         { new: true },
       );
       if (!employee) {
-        return res.status(404).json({ message: "No se encontro al empleado" });
+        const error: any = new Error("No se encontró al empleado");
+        error.statusCode = 404;
+        throw error;
       }
       res.status(200).json({ message: "Se actualizo al empleado", employee });
-    } catch (error: any) {
-      res
-        .status(500)
-        .json({ message: "Error del sistema", error: error.message });
+    } catch (error) {
+      next(error);
     }
   };
-  deleteEmployee = async (req: Request, res: Response) => {
+  deleteEmployee = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
       const employee = await Employee.findByIdAndDelete(id);
       if (!employee) {
-        return res.status(404).json({ message: "No se ecnotro el empleado" });
+        const error: any = new Error("No se encontró al empleado");
+        error.statusCode = 404;
+        throw error;
       }
       return res.status(200).json({ message: "Se elimino al empleado" });
-    } catch (error: any) {
-      return res
-        .status(500)
-        .json({ message: "Error en el sistema", error: error.message });
+    } catch (error) {
+      next(error);
     }
   };
 }

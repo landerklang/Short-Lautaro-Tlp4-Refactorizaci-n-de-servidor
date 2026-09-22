@@ -1,11 +1,12 @@
 import express, { Application } from "express";
 import EmployeeRoutes from "../routes/employer.routes";
 import mongoose from "mongoose";
-
 import { env } from "./envConfig.ts";
+import { ErrorHandler } from "../middleware/errorHandle.ts";
 
 const PORT = Number(env.PORT);
 const MONGO_URI = env.MONGO_URI;
+const errorHandler = new ErrorHandler();
 
 class Server {
   private app: Application;
@@ -14,6 +15,7 @@ class Server {
     this.app = express();
     this.midlewarer();
     this.routes();
+    this.app.use(errorHandler.handle.bind(errorHandler));
   }
 
   dbConnect() {

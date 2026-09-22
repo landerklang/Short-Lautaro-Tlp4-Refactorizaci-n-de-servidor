@@ -1,9 +1,9 @@
 TAREA:Factorizar el servidor
 FECHA:21/09
-Donde estoy: se reestructuro el controlador actualizar para que este funciones de forma correcta
-Que se: se que la forma en como tengo en el anterio trabajo esta mal
-Que falta: validar que las demas controladores funciones
-Que duda tengo: para que sirve la carpeta repository y porque debo de utilizarla
+Donde estoy: se añadio el errorhandle para que los controladores solamente se encargen de hacer su funciones no tambien de capturar los errores
+Que se: el como se esctruturaba el errorhandle
+Que falta: realizar el archivo y la carpeta repositorio junto con los cambio que tengo que realizarle a los controladores
+Que duda tengo: como se hace la carpeta la carpeta repository
 
 REGLA APRENDIDA: middleware antes que rutas en Express.
 REGLA APRENDIDA: los métodos de una clase no se ejecutan solos.

@@ -1,7 +1,16 @@
 import Employee from "../models/model.ts";
 
+// las interface se nombrar en Pascalcase
+interface EmployeeData{
+  name:string;
+  position:string;
+  baseSalary: number;
+  yearsOfService:number;
+  finalSalary: number;  
+}
+
 export class EmployeeRepository {
-  async create(data: any) {
+  async create(data: EmployeeData) {
     return await Employee.create(data);
   }
 
@@ -13,7 +22,7 @@ export class EmployeeRepository {
     return await Employee.findById(id);
   }
 
-  async update(id: string, data: any) {
+  async update(id: string, data: EmployeeData) {
     return await Employee.findByIdAndUpdate(id, data, { new: true });
   }
 

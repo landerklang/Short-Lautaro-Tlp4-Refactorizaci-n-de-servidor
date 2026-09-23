@@ -9,3 +9,14 @@ REGLA APRENDIDA: middleware antes que rutas en Express.
 REGLA APRENDIDA: los métodos de una clase no se ejecutan solos.
 REGLA APRENDIDA: no imprimir req completo, solo req.body / req.params
 REGLA APRENDIDA: los servicios son un conjuntos de configuraciones que se ejecutan durante las acciones del usuario
+
+
+la configuracion del servidor debe de estar en la raiz del proyecto
+
+las variables de entorno debe de estar en una carpeta llamada config
+
+en la carpeta database deben de estar la conexion a la base de datos
+
+typar los parametro que voy a recibir tanto en los controladores como en el repository y en el service
+
+instanciar una sola ves
